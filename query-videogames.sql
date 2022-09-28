@@ -138,11 +138,19 @@ GROUP BY awards.name , videogames.name, software_houses.name;
 
 
 --6- Selezionare categorie e classificazioni PEGI dei videogiochi che hanno ricevuto recensioni da 4 e 5 stelle, mostrandole una sola volta (3363)
---SELECT *
---FROM videogames
---LEFT JOIN reviews 
---ON videogames.id = reviews.videogame_id
---WHERE reviews.rating = 4 OR reviews.rating = 5;
+SELECT videogames.name , categories.name , pegi_labels.name
+FROM videogames
+LEFT JOIN category_videogame
+ON videogames.id = category_videogame.videogame_id
+LEFT JOIN categories
+ON category_videogame.category_id = categories.id
+LEFT JOIN pegi_label_videogame
+ON pegi_label_videogame.videogame_id = videogames.id
+LEFT JOIN pegi_labels
+ON pegi_label_videogame.pegi_label_id = pegi_labels.id
+LEFT JOIN reviews
+ON reviews.videogame_id = videogames.id
+WHERE reviews.rating = 4 OR reviews.rating = 5;
 
 --7- Selezionare quali giochi erano presenti nei tornei nei quali hanno partecipato i giocatori il cui nome inizia per 'S' (474)
 SELECT	videogames.name
