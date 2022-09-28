@@ -126,13 +126,16 @@ WHERE release_date >= '01/01/20'
 GROUP BY software_houses.id, software_houses.city,software_houses.name;
 
 -- 5- Selezionare i premi ricevuti da ogni software house per i videogiochi che ha prodotto (55) // da fixare
-SELECT count(award_videogame.award_id) as numero_premi
-FROM award_videogame
+SELECT awards.name ,videogames.name , software_houses.name
+FROM awards
+LEFT JOIN award_videogame
+ON awards.id = award_videogame.award_id
 LEFT JOIN videogames
-on award_videogame.videogame_id = videogames.id
+ON videogames.id = award_videogame.videogame_id
 LEFT JOIN software_houses
-on videogames.software_house_id = software_houses.id
-GROUP BY software_houses.id;
+ON software_houses.id = videogames.software_house_id
+GROUP BY awards.name , videogames.name, software_houses.name;
+
 
 --6- Selezionare categorie e classificazioni PEGI dei videogiochi che hanno ricevuto recensioni da 4 e 5 stelle, mostrandole una sola volta (3363)
 --SELECT *
