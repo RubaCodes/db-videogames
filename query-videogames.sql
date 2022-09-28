@@ -194,3 +194,11 @@ ON award_videogame.videogame_id = videogames.id
 JOIN awards
 ON awards.id = award_videogame.award_id
 WHERE tournaments.year = 2019 and awards.name ='Gioco più atteso' and award_videogame.year = 2018;
+
+-- 10- Selezionare i dati della prima software house che ha rilasciato un gioco, assieme ai dati del gioco stesso (software house id : 5)
+SELECT TOP 1 *
+FROM videogames
+LEFT JOIN software_houses
+ON software_houses.id = videogames.software_house_id
+ORDER BY release_date;
+
